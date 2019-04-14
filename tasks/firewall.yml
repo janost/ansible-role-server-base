@@ -1,0 +1,20 @@
+---
+- name: Set logging
+  ufw:
+    logging: low
+- name: "Allow SSH on port {{ ssh_port }}"
+  ufw:
+    rule: allow
+    port: "{{ ssh_port }}"
+    proto: tcp
+    comment: "Enable SSH on port {{ ssh_port }}"
+- name: Rate limit SSH
+  ufw:
+    rule: limit
+    port: "{{ ssh_port }}"
+    proto: tcp
+- name: Enable ufw with default deny policy
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming

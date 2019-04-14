@@ -1,0 +1,8 @@
+- name: Deploy systemd-journald configuration
+  copy:
+    src: files/etc/systemd/journald.conf
+    dest: /etc/systemd/journald.conf
+    owner: root
+    mode: 0644
+  notify:
+   - restart journald

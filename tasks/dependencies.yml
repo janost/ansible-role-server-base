@@ -1,0 +1,37 @@
+---
+- name: Add apt repositories
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: no
+  loop:
+    - "ppa:costamagnagianfranco/borgbackup"
+    - "ppa:wireguard/wireguard"
+- name: Upgrade all packages to the latest version
+  apt:
+    update_cache: yes
+    upgrade: dist
+- name: Install kernel and headers
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - "linux-image-{{ kernel_kind }}"
+    - "linux-headers-{{ kernel_kind }}"
+  when: handle_kernel_install
+- name: Install packages
+  apt:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - git
+    - tmux
+    - mc
+    - borgbackup
+    - wireguard
+    - ufw
+    - dropbear-initramfs
+- name: Remove obsolete packages
+  apt:
+    autoclean: yes
+    autoremove: yes

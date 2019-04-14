@@ -1,0 +1,11 @@
+---
+- name: Deploy sysctl tweaks
+  copy:
+    src: "{{ item }}"
+    dest: /etc/sysctl.d/
+    owner: root
+    mode: 0644
+  with_fileglob:
+    - files/etc/sysctl.d/*
+  notify:
+    - reload sysctl
