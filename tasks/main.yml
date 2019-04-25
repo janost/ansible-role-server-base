@@ -1,4 +1,8 @@
 ---
+- name: load architecture-dependent configuration
+  include_vars:
+    file: "vars/config_{{ ansible_architecture }}.yml"
+
 - import_tasks: dependencies.yml
 - import_tasks: sysctl-tweaks.yml
 - import_tasks: other-config.yml
