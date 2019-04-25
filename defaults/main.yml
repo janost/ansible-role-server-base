@@ -2,3 +2,4 @@
 handle_kernel_install: true
 kernel_kind: virtual-hwe-18.04
 ssh_port: 329
+ufw_log_level: low

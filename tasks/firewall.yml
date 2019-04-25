@@ -1,7 +1,7 @@
 ---
 - name: Set logging
   ufw:
-    logging: low
+    logging: "{{ ufw_log_level }}"
 - name: "Allow SSH on port {{ ssh_port }}"
   ufw:
     rule: allow

@@ -32,6 +32,7 @@
     - ufw
     - dropbear-initramfs
     - vnstat
+    - etckeeper
 - name: Remove obsolete packages
   apt:
     autoclean: yes

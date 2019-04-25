@@ -3,7 +3,7 @@
   group:
     name: ssh-users
     state: present
-- name: "Create user"
+- name: Create user
   user:
     name: "{{ ssh_username }}"
     append: yes
