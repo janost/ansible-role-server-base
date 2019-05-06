@@ -27,6 +27,7 @@
     - git
     - tmux
     - mc
+    - pwgen
     - borgbackup
     - wireguard
     - ufw
