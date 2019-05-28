@@ -1,3 +1,4 @@
+---
 - name: Deploy systemd-journald configuration
   copy:
     src: files/etc/systemd/journald.conf

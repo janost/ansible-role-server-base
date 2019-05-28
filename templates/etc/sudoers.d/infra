@@ -1,0 +1,1 @@
+{{ infra_user_name }} ALL=NOPASSWD:/usr/lib/openssh/sftp-server

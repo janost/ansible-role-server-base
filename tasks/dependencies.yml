@@ -5,7 +5,6 @@
     state: present
     update_cache: no
   loop:
-    - "ppa:costamagnagianfranco/borgbackup"
     - "ppa:wireguard/wireguard"
 - name: Upgrade all packages to the latest version
   apt:
@@ -28,7 +27,6 @@
     - tmux
     - mc
     - pwgen
-    - borgbackup
     - wireguard
     - ufw
     - dropbear-initramfs
@@ -38,29 +36,3 @@
   apt:
     autoclean: yes
     autoremove: yes
-- name: create rclone directory
-  file:
-    name: /opt/rclone
-    state: directory
-    owner: root
-    group: root
-- name: install rclone
-  unarchive:
-    dest: /opt/rclone
-    remote_src: yes
-    src: "{{ url_rclone }}"
-    extra_opts: ["-j"]
-- name: set rclone permissions
-  file:
-    path: /opt/rclone/rclone
-    owner: root
-    group: root
-    mode: 0755
-- name: create rclone symlink
-  file:
-    src: /opt/rclone/rclone
-    dest: /usr/local/bin/rclone
-    state: link
-    owner: root
-    group: root
-    mode: 0755

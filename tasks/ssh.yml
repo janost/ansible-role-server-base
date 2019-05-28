@@ -11,7 +11,7 @@
     state: present
     shell: /bin/bash
   register: usercreate
-- name: "Force user to change password"
+- name: Force user to change password
   shell: "passwd -d {{ ssh_username }} && chage -d 0 {{ ssh_username }}"
   when: usercreate.changed
 - name: Set authorized key taken from file
@@ -19,6 +19,27 @@
     user: "{{ ssh_username }}"
     state: present
     key: "{{ ssh_pubkey }}"
+- name: Create infra user
+  user:
+    name: infra
+    append: yes
+    groups: ssh-users
+    state: present
+    shell: /usr/sbin/nologin
+  when: create_infra_user
+- name: Set authorized key taken from file for infra user
+  authorized_key:
+    user: "{{ infra_user_name }}"
+    state: present
+    key: "{{ infra_pubkey }}"
+  when: create_infra_user
+- name: Deploy infra sudoers configuration
+  template:
+    src: templates/etc/sudoers.d/infra
+    dest: "/etc/sudoers.d/{{ infra_user_name }}"
+    owner: root
+    mode: 0644
+  when: create_infra_user
 - name: Deploy sshd configuration
   template:
     src: templates/etc/ssh/sshd_config.j2
