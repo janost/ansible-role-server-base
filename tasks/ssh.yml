@@ -25,7 +25,7 @@
     append: yes
     groups: ssh-users
     state: present
-    shell: /usr/sbin/nologin
+    shell: /bin/bash
   when: create_infra_user
 - name: Set authorized key taken from file for infra user
   authorized_key:
