@@ -7,10 +7,12 @@
   loop:
     - "ppa:costamagnagianfranco/borgbackup"
     - "ppa:wireguard/wireguard"
+  ignore_errors: yes
 - name: Upgrade all packages to the latest version
   apt:
     update_cache: yes
     upgrade: dist
+  ignore_errors: yes
 - name: Install kernel and headers
   apt:
     name: "{{ packages }}"

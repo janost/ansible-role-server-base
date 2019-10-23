@@ -25,8 +25,12 @@
     append: yes
     groups: ssh-users
     state: present
-    shell: /bin/bash
   when: create_infra_user
+- name: Delete infra user
+  user:
+    name: infra
+    state: absent
+  when: not create_infra_user
 - name: Set authorized key taken from file for infra user
   authorized_key:
     user: "{{ infra_user_name }}"
@@ -40,6 +44,11 @@
     owner: root
     mode: 0644
   when: create_infra_user
+- name: Delete infra sudoers configuration
+  file:
+    state: absent
+    path: "/etc/sudoers.d/{{ infra_user_name }}"
+  when: not create_infra_user
 - name: Deploy sshd configuration
   template:
     src: templates/etc/ssh/sshd_config.j2
