@@ -1,0 +1,33 @@
+---
+- name: Set logging
+  ufw:
+    logging: "{{ ufw_log_level }}"
+- name: "Allow SSH on port {{ ssh_port }}"
+  ufw:
+    rule: allow
+    port: "{{ ssh_port }}"
+    proto: tcp
+    comment: "Enable SSH on port {{ ssh_port }}"
+- name: Enable ufw with default deny policy
+  ufw:
+    state: enabled
+    policy: deny
+    direction: incoming
+- name: Disable default fail2ban ssh jail
+  copy:
+    src: files/etc/fail2ban/jail.d/defaults-debian.conf
+    dest: /etc/fail2ban/jail.d/
+    owner: root
+    mode: 0644
+  notify:
+    - restart fail2ban
+- name: Deploy fail2ban configuration
+  template:
+    src: templates/etc/fail2ban/jail.d/ssh-ufw.conf
+    dest: /etc/fail2ban/jail.d/ssh-ufw.conf
+    force: yes
+    owner: root
+    mode: 0644
+  notify:
+    - restart fail2ban
+- meta: flush_handlers

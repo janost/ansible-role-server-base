@@ -7,3 +7,4 @@
 - import_tasks: sysctl-tweaks.yml
 - import_tasks: other-config.yml
 - import_tasks: ssh.yml
+- import_tasks: firewall.yml

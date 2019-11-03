@@ -36,6 +36,7 @@
     - dropbear-initramfs
     - vnstat
     - etckeeper
+    - fail2ban
 - name: Remove obsolete packages
   apt:
     autoclean: yes
