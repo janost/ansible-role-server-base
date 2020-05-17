@@ -2,6 +2,8 @@
 handle_kernel_install: true
 create_infra_user: false
 infra_user_name: infra
-kernel_kind: virtual-hwe-18.04
+kernel_kind: generic
 ssh_port: 329
 ufw_log_level: low
+journald_system_max_use: 64M
+journald_runtime_max_use: 64M

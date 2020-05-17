@@ -5,7 +5,6 @@
     state: present
     update_cache: no
   loop:
-    - "ppa:costamagnagianfranco/borgbackup"
     - "ppa:wireguard/wireguard"
   ignore_errors: yes
 - name: Upgrade all packages to the latest version
@@ -30,13 +29,13 @@
     - tmux
     - mc
     - pwgen
-    - borgbackup
     - wireguard
     - ufw
     - dropbear-initramfs
     - vnstat
     - etckeeper
     - fail2ban
+    - unzip
 - name: Remove obsolete packages
   apt:
     autoclean: yes
@@ -67,4 +66,3 @@
     owner: root
     group: root
     mode: 0755
-
